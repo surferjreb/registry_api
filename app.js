@@ -3,39 +3,66 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const expressError = require('./utils/ExpressError');
+const db = require('./models/db.js');
+const session = require('express-session');
+const flash = require('connect-flash');
+const ejsMate = require('ejs-mate');
+const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+//const usersRouter = require('./routes/users');
 
 const app = express();
 
+const sessionConfig = {
+  secret: 'thisisabadsecret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+      maxAge: 1000 * 60 * 60 * 24 * 7
+  }
+}
+
 // view engine setup
+app.engine('ejs', ejsMate);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+mongoose.set('strictQuery', true);
+
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use(methodOverride('_method'));
+app.use(session(sessionConfig));
+app.use(flash());
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// makes the success flash available for all templates
+app.use((req, res, next ) => {
+
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use('/', indexRouter);
+//app.use('/users', usersRouter);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+// catch un-recognized error label as 404
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page Not Found', 404))
+});
+
+// catch all unrecognized errors
+app.use((err, reg, res, next) => {
+  const { statusCode=500 } = err;
+  if(!err.message) err.message = "Run!!, Things went sideways...";
+  res.status(statusCode).render('error', { title: 'Error', err});
 });
 
 module.exports = app;
