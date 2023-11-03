@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose();
+const { Schema } = mongoose;
 const guest = require('./guest');
 
 const commentSchema = new Schema({
@@ -11,17 +11,23 @@ const commentSchema = new Schema({
 		type: String,
 		required: true
 	},
+	commentTitle: {
+		type: String,
+		minLength: 3,
+		maxLength: 80,
+		required: true
+	},
 	comment: {
 		type: String,
 		default: "Congratulations!"
 	},
 	registeredGuest: {
-		type: ObjectId(),
+		type: Schema.Types.ObjectId,
 		ref: guest,
 		required: true
 	}
 })
 
-const comment = mongoose.models('comment', commentSchema);
+const comment = mongoose.model('comment', commentSchema);
 
 module.exports = comment;

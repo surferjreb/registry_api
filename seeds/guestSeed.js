@@ -4,38 +4,24 @@ const guest = require('../models/guest');
 require('../models/db');
 
 
-const newDate = new Date();
-
-
 const guestSeeds = [
 	{
-		date: newDate.toLocaleDateString(),
-		time: newDate.toLocaleTimeString(),
+		_id: '65451d80065b55a27e38b49a',
 		firstName: "Bilbo",
 		lastName: "Baggins",
 		email: "bbaggin@gmail.com",
-		comment: {
-			title: "You Rock",
-			message: "Stay classy"
-		}
 	},
 	{
-		date: newDate.toLocaleDateString(),
-		time: newDate.toLocaleTimeString(),
+		_id: '65451d80065b55a27e38b49d',
 		firstName: "Jimmy",
 		lastName: "Page",
 		email: "WailingWall@gmail.com"
 	},
 	{
-		date: newDate.toLocaleDateString(),
-		time: newDate.toLocaleTimeString(),
+		_id: '65451d80065b55a27e38b49f',
 		firstName: "Roger",
 		lastName: "Moore",
 		email: "SkMartOnly@gmail.com",
-		comment: {
-			title: "You know",
-			message: "We will always have the islands!"
-		}
 	},
 ]
 

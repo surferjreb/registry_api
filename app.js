@@ -9,6 +9,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 //const usersRouter = require('./routes/users');
