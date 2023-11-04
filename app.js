@@ -54,9 +54,9 @@ app.use((req, res, next ) => {
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 
-// catch un-recognized error label as 404
+// catch un-recognized page
 app.all('*', (req, res, next) => {
-  next(new ExpressError('Page Not Found', 404))
+  next(new expressError('Page Not Found', 404))
 });
 
 // catch all unrecognized errors
