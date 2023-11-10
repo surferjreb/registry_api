@@ -10,9 +10,16 @@ const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const user = require('./models/user');
+
+// used for authentication
+const passport = require('passport');
+const localStrategy = require('passport-local');
+
 
 const indexRouter = require('./routes/index');
-//const usersRouter = require('./routes/users');
+const guestRouter = require('./routes/guest');
+const usersRouter = require('./routes/users');
 
 const app = express();
 
@@ -22,7 +29,8 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
       expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-      maxAge: 1000 * 60 * 60 * 24 * 7
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: false
   }
 }
 
@@ -43,6 +51,14 @@ app.use(methodOverride('_method'));
 app.use(session(sessionConfig));
 app.use(flash());
 
+// for authentication
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(user.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
+
 // makes the success flash available for all templates
 app.use((req, res, next ) => {
 
@@ -52,7 +68,8 @@ app.use((req, res, next ) => {
 });
 
 app.use('/', indexRouter);
-//app.use('/users', usersRouter);
+app.use('/guests', guestRouter);
+app.use('/users', usersRouter);
 
 // catch un-recognized page
 app.all('*', (req, res, next) => {
