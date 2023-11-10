@@ -3,13 +3,13 @@
   <div class="row">
     <div class="col-sm-3"></div>
       <div class="col">
-        <form class="form" action="/guest/new" method="POST">
+        <form class="form" action="/guests/<%= foundUser._id %>/edit?_method=PUT" method="POST">
           <div class="row">
             <div class="col">
               <label for="firstName" class="form-label">First name: </label>
             </div>
             <div class="col">
-              <input class="form-control" type="text" id="firstName" name="firstName" placeholder="firstName">
+              <input class="form-control" type="text" id="firstName" name="firstName" placeholder="firstName" value="user[firstName]">
             </div>
           </div>
           <div class="row">
@@ -17,7 +17,7 @@
               <label for="lastName" class="form-label">Last name: </label>
             </div>
             <div class="col">
-              <input class="form-control" type="text" id="lastName" name="lastName" placeholder="lastName">
+              <input class="form-control" type="text" id="lastName" name="lastName" placeholder="lastName" value="user[lastName]">
             </div>
           </div>
           <div class="row">
@@ -25,7 +25,7 @@
               <label for="email" class="form-label">Email: </label>
             </div>
             <div class="col">
-              <input class="form-control" type="text" id="email" name="email" placeholder="email">
+              <input class="form-control" type="text" id="email" name="email" placeholder="email" value="user[email]">
             </div>
           </div>
           <div class="row">
@@ -33,7 +33,7 @@
               <label for="username" class="form-label">Username: </label>
             </div>
             <div class="col">
-              <input class="form-control" type="text" id="username" name="username" placeholder="username">
+              <input class="form-control" type="text" id="username" name="username" placeholder="username" value="user[username]">
             </div>
           </div>
           <div class="row">
@@ -41,7 +41,7 @@
               <label for="password" class="form-label">Password: </label>
             </div>
             <div class="col">
-              <input class="form-control" type="text" id="password" name="password" placeholder="password">
+              <input class="form-control" type="text" id="password" name="password" placeholder="password" value="user[password]">
             </div>
           </div>
           <div class="row">
