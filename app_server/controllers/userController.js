@@ -54,6 +54,14 @@ _logoutUser = (req, res, next) => {
 
 }
 
+_editUser = catchAsync( async (req, res,) => {
+    res.send('stuff happens here..  Magic...  ');
+});
+
+_deleteUser = catchAsync( async (req, res) => {
+    res.send('delete stuff here');
+});
+
 
 module.exports.getUser = _getUser;
 module.exports.createUser = _createUser;
@@ -62,4 +70,6 @@ module.exports.getNewUserForm = _getNewUserForm;
 module.exports.getLoginForm = _getLoginForm;
 module.exports.loginUser = _loginUser;
 module.exports.logoutUser = _logoutUser;
+module.exports.editUser = _editUser;
+module.exports.deleteUser = _deleteUser;
 

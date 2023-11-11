@@ -9,7 +9,7 @@ const _getGuest = catchAsync( async (req, res) => {
 
 	if(!registeredGuest) throw new expressError('Can not locate', 501 );
 
-	res.render('guests/index', { title: `${registeredGuest.firstName}`, registeredGuest });
+	res.render('guests/edit', { title: `${registeredGuest.firstName}`, registeredGuest });
 
 });
 
@@ -20,15 +20,16 @@ const _getGuestForm = (req, res) => {
 
 // create/register a guest
 const _registerGuest = catchAsync( async (req, res) => {
-    const { firstName, LastName, email } = req.body.guest
+    const { firstName, lastName, email, username, password } = req.body
 
 	const newGuest = new guest({
         firstName: firstName,
 		lastName: lastName,
-		email: email
+		email: email,
+		username: username
 	});
 
-    const newG = await user.register(newGuest, password);
+    const newG = await guest.register(newGuest, password);
 
 	//const newG = await newGuest.save();
     if(!newG) throw new expressError('Unable to register guest', 500);
@@ -65,6 +66,24 @@ const _getListOfGuests = catchAsync( async (req, res) => {
 
 });
 
+_getGuestLoginForm = (req, res) => {
+    res.render('guests/login', { title: 'Login' });
+}
+
+_loginGuest = (req, res) => {
+    res.redirect('/');
+};
+
+_logoutGuest = (req, res, next) => {
+    req.logout(function (err) {
+        if(err) {
+            return next(err);
+        }
+        res.redirect('/guests/login');
+    });
+
+}
+
 
 module.exports.getGuest = _getGuest;
 module.exports.getGuestForm = _getGuestForm;
@@ -72,3 +91,6 @@ module.exports.registerGuest = _registerGuest;
 module.exports.editGuest = _editGuest;
 module.exports.deleteGuest = _deleteGuest;
 module.exports.getListOfGuests = _getListOfGuests;
+module.exports.getGuestLoginForm = _getGuestLoginForm;
+module.exports.loginGuest = _loginGuest;
+module.exports.logoutGuest = _logoutGuest;

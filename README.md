@@ -1,37 +1,26 @@
+# Reigstry_api
+### *James R. Brown*
 
-# Registry Web
+## Description:
+  
+> - A registry website app.  This will use an api.
 
-> ***Author: James R. Brown***
+## Dependecies:
 
-### Description:
+> - checkout the package.json
 
-> A registry page.
+## Issues:
 
-### Dependecies:
+> - None currently :smiley:
 
-> - Node: v18.14.2
-> - cookie-parser: 1.4.4
-> - debug: 2.6.9
-> - ejs: 3.1.9
-> - ejs-mate: 4.0.0
-> - express: 4.18.2
-> - express-session: 1.17.3
-> - http-errors: 1.6.3
-> - joi: 17.11.0
-> - method-override: 3.0.0
-> - mongoose: 8.0.0
-> - morgan: 1.9.1
->
-> refer to [package.json](./package.json)
+## Fixes:  
 
-### Issues:
+> - I'm sure there will be a few, its still in development. :alien: :smiley: :thinking: :smiley: :alien:
 
-> None. As of yet...  :smiley:
+## Versions:
 
-### Fixes:
+> - 1.0.0
 
-> None yet. :thinking: :astonished: :alien:
 
-### Version:
 
-> 1.0.0
+

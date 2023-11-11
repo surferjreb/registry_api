@@ -6,7 +6,7 @@ const ExpressError = require('../utils/ExpressError');
 
 const _getIndex = catchAsync( async (req, res) => {
     const comments = await comment.find({}).populate('registeredGuest');
-	if(!comments) throw new ExpressError('not found', 409);
+	if(!comments) throw new ExpressError('not found', 500);
 
 	res.render('index', { title: 'Registry', comments });
 

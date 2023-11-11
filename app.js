@@ -3,23 +3,25 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const expressError = require('./utils/ExpressError');
-const db = require('./models/db.js');
+const expressError = require('./app_server/utils/ExpressError');
+const db = require('./app_server/models/db.js');
 const session = require('express-session');
 const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-const user = require('./models/user');
+const user = require('./app_server/models/user');
+const guest = require('./app_server/models/guest');
 
 // used for authentication
 const passport = require('passport');
 const localStrategy = require('passport-local');
 
 
-const indexRouter = require('./routes/index');
-const guestRouter = require('./routes/guest');
-const usersRouter = require('./routes/users');
+const indexRouter = require('./app_server/routes/index');
+// const guestRouter = require('./app_server/routes/guest');
+// const usersRouter = require('./app_server/routes/users');
+// const routesApi = require('./app_api/routes/index');
 
 const app = express();
 
@@ -36,7 +38,7 @@ const sessionConfig = {
 
 // view engine setup
 app.engine('ejs', ejsMate);
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'ejs');
 
 mongoose.set('strictQuery', true);
@@ -54,9 +56,12 @@ app.use(flash());
 // for authentication
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new localStrategy(user.authenticate()));
+passport.use('local', new localStrategy(user.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
+passport.use('local-guest', new localStrategy(guest.authenticate()));
+passport.serializeUser(guest.serializeUser());
+passport.deserializeUser(guest.deserializeUser());
 
 
 // makes the success flash available for all templates
@@ -68,8 +73,9 @@ app.use((req, res, next ) => {
 });
 
 app.use('/', indexRouter);
-app.use('/guests', guestRouter);
-app.use('/users', usersRouter);
+// app.use('/api', routesApi);
+// app.use('/guests', guestRouter);
+// app.use('/users', usersRouter);
 
 // catch un-recognized page
 app.all('*', (req, res, next) => {
