@@ -1,5 +1,6 @@
 # Reigstry_api
-### *James R. Brown*
+
+### Author: *James R. Brown*
 
 ## Description:
   
@@ -13,7 +14,7 @@
 
 > - None currently :smiley:
 
-## Fixes:  
+## Fixes:
 
 > - I'm sure there will be a few, its still in development. :alien: :smiley: :thinking: :smiley: :alien:
 
