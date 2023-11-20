@@ -1,7 +1,7 @@
-const comment = require('../models/comment');
-const catchAsync = require('../utils/catchAsync');
-const expressError = require('../utils/ExpressError');
-const guest = require('../models/guest');
+const comment = require('../../app_api/models/comment');
+const catchAsync = require('../../app_api/utils/catchAsync');
+const expressError = require('../../app_api/utils/ExpressError');
+const guest = require('../../app_api/models/guest');
 
 
 // get comment new comment form

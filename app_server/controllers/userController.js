@@ -1,7 +1,7 @@
-const catchAsync = require('../utils/catchAsync');
-const expressError = require('../utils/ExpressError');
+const catchAsync = require('../../app_api/utils/catchAsync');
+const expressError = require('../../app_api/utils/ExpressError');
 const passport = require('passport');
-const user = require('../models/user');
+const user = require('../../app_api/models/user');
 
 
 // get a user

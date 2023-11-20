@@ -5,12 +5,12 @@ const guestController = require('../controllers/guestController');
 const commentController = require('../controllers/commentController');
 const userController = require('../controllers/userController');
 const passport = require('passport');
-const { isLoggedIn } = require('../middleware');
+const { isLoggedIn } = require('../../app_api/middleware');
 
 
 /* GET home page. */
 router.get('/', indexController.getIndex );
-router.get('/testJSON', indexController.testJSON );
+// router.get('/testJSON', indexController.testJSON );
 
 // User routes
 router.get('/users', isLoggedIn, userController.getListOfUsers );

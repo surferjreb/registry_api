@@ -1,6 +1,6 @@
-const catchAsync = require('../utils/catchAsync');
-const expressError = require('../utils/ExpressError');
-const guest = require('../models/guest');
+const catchAsync = require('../../app_api/utils/catchAsync');
+const expressError = require('../../app_api/utils/ExpressError');
+const guest = require('../../app_api/models/guest');
 
 // view a guest
 const _getGuest = catchAsync( async (req, res) => {

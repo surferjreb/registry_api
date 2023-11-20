@@ -13,12 +13,13 @@ const methodOverride = require('method-override');
 const user = require('./app_api/models/user');
 const guest = require('./app_api/models/guest');
 
+
 // used for authentication
 const passport = require('passport');
 const localStrategy = require('passport-local');
 
 
-const indexRouter = require('./app_api/routes/index');
+const indexRouter = require('./app_server/routes/index');
 // const guestRouter = require('./app_server/routes/guest');
 // const usersRouter = require('./app_server/routes/users');
 const routesApi = require('./app_api/routes/index');
@@ -73,7 +74,7 @@ app.use((req, res, next ) => {
 });
 
 app.use('/', indexRouter);
-// app.use('/api', routesApi);
+app.use('/api', routesApi);
 // app.use('/guests', guestRouter);
 // app.use('/users', usersRouter);
 

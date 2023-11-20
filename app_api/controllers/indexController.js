@@ -2,13 +2,26 @@ const catchAsync = require('../utils/catchAsync');
 const expressError = require('../utils/ExpressError');
 const comment = require('../models/comment');
 const ExpressError = require('../utils/ExpressError');
+//const request = require('request');
 
 
-const _getIndex = catchAsync( async (req, res) => {
-    const comments = await comment.find({}).populate('registeredGuest');
-	if(!comments) throw new ExpressError('not found', 500);
+// const apiOptions = {
+// 	server: "http://localhost:3000"
+// }
 
-	res.render('index', { title: 'Registry', comments });
+
+const _getJSONIndex = catchAsync( async (req, res) => {
+
+	try{
+
+        const comments = await comment.find({}, '-_id').populate('registeredGuest', '-_id');
+	    if(!comments) throw new ExpressError('not found', 500);
+
+        _sendJSONResponse(res, 200, comments );
+
+	}catch(err) {
+        _sendJSONResponse(res, 500, err);
+	}
 
 });
 
@@ -22,13 +35,15 @@ const _sendJSONResponse = (res, status, content) => {
 
 }
 
-const _testJson = (req, res) => {
-	let status = 200;
-	let content = { "status": "success" };
-	_sendJSONResponse(res, status, content);
-	res.send("You made it");
-}
+// const _testJson = (req, res) => {
+// 	let status = 200;
+// 	let content = { "status": "success" };
+// 	_sendJSONResponse(res, status, content);
+// 	//res.send("You made it");
+// }
 
-module.exports.getIndex = _getIndex;
+module.exports.getJSONIndex = _getJSONIndex;
 module.exports.sendJSON = _sendJSONResponse;
-module.exports.testJSON = _testJson;
+
+
+// module.exports.testJSON = _testJson;

@@ -1,7 +1,7 @@
-const catchAsync = require('../utils/catchAsync');
-const expressError = require('../utils/ExpressError');
-const comment = require('../models/comment');
-const ExpressError = require('../utils/ExpressError');
+const catchAsync = require('../../app_api/utils/catchAsync');
+const expressError = require('../../app_api/utils/ExpressError');
+const comment = require('../../app_api/models/comment');
+const ExpressError = require('../../app_api/utils/ExpressError');
 
 
 const _getIndex = catchAsync( async (req, res) => {
