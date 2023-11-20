@@ -10,7 +10,7 @@ const { isLoggedIn } = require('../middleware');
 
 /* GET home page. */
 router.get('/', indexController.getIndex );
-router.get('/testJSON', indexController.testJSON );
+//router.get('/testJSON', indexController.testJSON );
 
 // User routes
 router.get('/users', isLoggedIn, userController.getListOfUsers );

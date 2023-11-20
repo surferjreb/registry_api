@@ -3,25 +3,25 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const expressError = require('./app_server/utils/ExpressError');
-const db = require('./app_server/models/db.js');
+const expressError = require('./app_api/utils/ExpressError');
+const db = require('./app_api/models/db.js');
 const session = require('express-session');
 const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-const user = require('./app_server/models/user');
-const guest = require('./app_server/models/guest');
+const user = require('./app_api/models/user');
+const guest = require('./app_api/models/guest');
 
 // used for authentication
 const passport = require('passport');
 const localStrategy = require('passport-local');
 
 
-const indexRouter = require('./app_server/routes/index');
+const indexRouter = require('./app_api/routes/index');
 // const guestRouter = require('./app_server/routes/guest');
 // const usersRouter = require('./app_server/routes/users');
-// const routesApi = require('./app_api/routes/index');
+const routesApi = require('./app_api/routes/index');
 
 const app = express();
 

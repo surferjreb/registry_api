@@ -1,0 +1,44 @@
+<% layout('layouts/boilerplate') %>
+<div class="container-fluid">
+  <div class="row m-2">
+    <div class="col-sm-3"></div>
+    <div class="col text-center mt-2">
+      <h1 class="m-2"><%= title %></h1>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+  <div class="row m-2 overflow-y: scroll">
+    <div class="col-sm-3"></div>
+    <div class="col mt-2 border border-secondary rounded">
+      <div class="row">
+        <div class="col-4">
+          <nav id="navbar-guest" class="h-100 flex-column align-items-stretch pe-4 border-end  style="height: 400px; overflow: auto" >
+            <nav class="nav nav-pills flex-column">
+              <% for(let comment of comments ) { %>
+                <a class="nav-link m-1 p-2 " href="#<%- comment._id %>"><%- comment.registeredGuest.firstName %> <%- comment.registeredGuest.lastName %></a>
+              <% } %>
+            </nav>
+          </nav>
+        </div>
+        <div class="col-8">
+          <div data-bs-spy="scroll" data-bs-target="navbar-guest" data-bs-smooth-scroll="true" class="" style="height: 400px; overflow: auto" tabindex="0">
+            <% for(let comment of comments ) {%>
+              <div class="card m-2" id="<%- comment._id %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%- comment.commentTitle %></h5>
+                  <p class="card-text"><%- comment.comment %></p>
+
+                </div>
+              </div>
+              <div >
+              <h4></h4>
+              <p></p>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>

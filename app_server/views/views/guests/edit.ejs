@@ -1,0 +1,40 @@
+<% layout('layouts/boilerplate') %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3"></div>
+      <div class="col">
+        <form class="form" action="/guests/<%= registeredGuest._id %>/edit?_method=PUT" method="POST">
+          <div class="row">
+            <div class="col">
+              <label for="firstName" class="form-label">First name: </label>
+            </div>
+            <div class="col">
+              <input class="form-control" type="text" id="firstName" name="firstName" placeholder="firstName" value="<%= registeredGuest.firstName %>">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="lastName" class="form-label">Last name: </label>
+            </div>
+            <div class="col">
+              <input class="form-control" type="text" id="lastName" name="lastName" placeholder="lastName" value="<%= registeredGuest.lastName %>">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="email" class="form-label">Email: </label>
+            </div>
+            <div class="col">
+              <input class="form-control" type="text" id="email" name="email" placeholder="email" value="<%= registeredGuest.email %>">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-secondary" type="submit">Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<% layout('layouts/boilerplate') %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3"></div>
+	  <div class="col">
+		  <table class="table" >
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let guest of guests) { %>
+            <tr>
+              <td><%= guest.firstName %></td>
+              <td><%= guest.lastName %></td>
+              <td><%= guest.email %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+	  </div>
+	<div class="col-sm-3"></div>
+  </div>
+</div>

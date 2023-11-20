@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate') %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col">
+      <form class="form" action="/guests/<%= g._id %>/comment/new" method="POST">
+        <div class="row">
+          <div class="col">
+            <label for="commentTitle" class="form-label">Title: </label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" id="commentTitle" name="commentTitle" placeholder="commentTitle">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="comment" class="form-label">Comment: </label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" id="comment" name="newcomment" placeholder="comment">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" id="guest" name="guest" placeholder="guest" value="<%= g._id %>" hidden>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button type="submit" class="btn btn-secondary">Create Comment</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>
