@@ -20,12 +20,20 @@ _getNewUserForm = (req, res) => {
 
 // create a user
 _createUser = async (req, res) => {
-    const { username, password, email } = req.body
+    try{
+        const { username, password, firstName, lastName, email } = req.body
 
-    const u = new user({email: email, username });
-    const newUser = await user.register(u, password);
-    if(!newUser) throw new expressError('Incorrect username or password', 401 )
-    res.redirect(`/users/${newUser._id}`);
+        const u = new user({firstName, lastName, email, username});
+        const newUser = await user.register(u, password);
+        if(!newUser) throw new expressError('Incorrect username or password', 401 )
+        req.login(newUser, err => {
+            if (err) return next(err);
+            res.redirect(`/users/${newUser._id}`);
+        })
+    } catch (err) {
+        res.redirect('/users/login');
+    }
+
 }
 
 // return a list a users
@@ -40,9 +48,21 @@ _getLoginForm = (req, res) => {
     res.render('users/login', { title: 'Login' });
 }
 
-_loginUser = (req, res) => {
-    res.redirect('/');
-};
+_loginUser = catchAsync(async (req, res) => {
+    let reDirect = res.locals.returnTo
+
+    try{
+        req.flash('success', `Hello!    ${req.user.username}` );
+        if (!reDirect) {
+            reDirect = '/'
+        }
+    } catch (err){
+        req.flash('error', err);
+        reDirect = '/users/login';
+    }
+
+    res.redirect(reDirect)
+});
 
 _logoutUser = (req, res, next) => {
     req.logout(function (err) {

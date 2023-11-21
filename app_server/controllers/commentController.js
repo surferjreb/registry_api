@@ -24,7 +24,7 @@ _createComment = catchAsync( async (req, res) => {
       time: newDate.toLocaleTimeString(),
       commentTitle: commentTitle,
       comment: newcomment,
-      registeredGuest: guest
+      guest: guest
   });
 
   const c = newComment.save();

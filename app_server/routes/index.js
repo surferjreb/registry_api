@@ -5,7 +5,7 @@ const guestController = require('../controllers/guestController');
 const commentController = require('../controllers/commentController');
 const userController = require('../controllers/userController');
 const passport = require('passport');
-const { isLoggedIn } = require('../../app_api/middleware');
+const { isLoggedIn, storeReturn } = require('../../app_api/middleware');
 
 
 /* GET home page. */
@@ -21,7 +21,7 @@ router.post('/users/new', userController.createUser );
 
 router.get('/users/login', userController.getLoginForm );
 
-router.post('/users/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/users/login'}), userController.loginUser );
+router.post('/users/login', storeReturn, passport.authenticate('local', { failureFlash: true, failureRedirect: '/users/login'}), userController.loginUser );
 
 router.get('/users/logout', userController.logoutUser );
 
@@ -31,26 +31,24 @@ router.put('/users/:id', isLoggedIn, userController.editUser );
 
 router.delete('/users/:id', isLoggedIn, userController.deleteUser );
 
-// Guest routes
-router.get('/guests', guestController.getListOfGuests );
+// guest routes
+router.get('/guests', isLoggedIn, guestController.getListOfGuests );
 
-router.get('/guests/new', guestController.getGuestForm );
+router.get('/guests/new', guestController.getNewGuestForm );
 
-router.post('/guests/new', guestController.registerGuest );
+router.post('/guests/new', guestController.createGuest );
 
-router.get('/guests/login', guestController.getGuestLoginForm );
+router.get('/guests/login', guestController.getLoginForm );
 
-router.post('/guests/login', passport.authenticate('local-guest', { failureFlash: true, failureRedirect: '/guests/login'}), guestController.loginGuest );
+router.post('/guests/login', storeReturn, passport.authenticate('local-guest', { failureFlash: true, failureRedirect: '/guests/login'}), guestController.loginGuest );
 
 router.get('/guests/logout', guestController.logoutGuest );
 
-router.get('/guests/:id', guestController.getGuest );
+router.get('/guests/:id', isLoggedIn, guestController.getGuest );
 
 router.put('/guests/:id', isLoggedIn, guestController.editGuest );
 
 router.delete('/guests/:id', isLoggedIn, guestController.deleteGuest );
-
-
 
 // Comment routes
 router.get('/guests/:id/comment/new', commentController.getCommentForm );

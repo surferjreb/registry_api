@@ -11,7 +11,7 @@ const commentSchema = new Schema({
 		type: String,
 		required: true
 	},
-	commentTitle: {
+	title: {
 		type: String,
 		minLength: 3,
 		maxLength: 80,
@@ -21,7 +21,7 @@ const commentSchema = new Schema({
 		type: String,
 		default: "Congratulations!"
 	},
-	registeredGuest: {
+	guest: {
 		type: Schema.Types.ObjectId,
 		ref: guest,
 		required: true

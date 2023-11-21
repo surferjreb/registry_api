@@ -58,16 +58,34 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use('local', new localStrategy(user.authenticate()));
-passport.serializeUser(user.serializeUser());
-passport.deserializeUser(user.deserializeUser());
 passport.use('local-guest', new localStrategy(guest.authenticate()));
-passport.serializeUser(guest.serializeUser());
-passport.deserializeUser(guest.deserializeUser());
+
+passport.serializeUser(user.serializeUser((entity, cb) => {
+  process.nextTick(() => {
+    cb(null, {id: entity.id, username: entity.username });
+
+  });
+
+}));
+
+passport.deserializeUser(user.deserializeUser((obj, cb) => {
+  process.nextTick(() => {
+    switch (obj.type) {
+        case 'user': return cb(null, user);
+        case 'guest': return cb(null, guest);
+        default:
+          cb(new Error('no entity type', obj.type), null);
+    }
+
+
+  });
+
+}));
 
 
 // makes the success flash available for all templates
 app.use((req, res, next ) => {
-
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();
