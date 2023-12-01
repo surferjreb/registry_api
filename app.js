@@ -11,7 +11,7 @@ const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const user = require('./app_api/models/user');
-const guest = require('./app_api/models/guest');
+
 
 
 // used for authentication
@@ -57,31 +57,20 @@ app.use(flash());
 // for authentication
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use('local', new localStrategy(user.authenticate()));
-passport.use('local-guest', new localStrategy(guest.authenticate()));
+passport.use('user', new localStrategy(user.authenticate()));
 
-passport.serializeUser(user.serializeUser((entity, cb) => {
+//serialize user
+passport.serializeUser((user, cb) => {
   process.nextTick(() => {
-    cb(null, {id: entity.id, username: entity.username });
-
+    cb(null, {id: user.id, username: user.username });
   });
+});
 
-}));
-
-passport.deserializeUser(user.deserializeUser((obj, cb) => {
+passport.deserializeUser((user, cb) => {
   process.nextTick(() => {
-    switch (obj.type) {
-        case 'user': return cb(null, user);
-        case 'guest': return cb(null, guest);
-        default:
-          cb(new Error('no entity type', obj.type), null);
-    }
-
-
+      return cb(null, user);
   });
-
-}));
-
+});
 
 // makes the success flash available for all templates
 app.use((req, res, next ) => {

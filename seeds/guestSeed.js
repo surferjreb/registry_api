@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const user = require('../app_api/models/user');
+const guest = require('../app_api/models/guest');
 
 require('../app_api/models/db');
 
 
-const userSeeds = [
+const guestSeeds = [
 	{
 
 		firstName: "Bilbo",
@@ -67,15 +67,15 @@ const userSeeds = [
 
 ]
 
-const userDB = async () => {
-	for(let seed of userSeeds) {
-		const u = new user.register(seed, seed.firstName);
+const guestDB = async () => {
+	for(let seed of guestSeeds) {
+		const u = new guest.register(seed, seed.firstName);
 		console.log(u);
 		await u.save();
 	}
 }
 
-userDB().then(() => {
+guestDB().then(() => {
 	console.log('Success!');
     mongoose.connection.close();
 }).catch((err) => {

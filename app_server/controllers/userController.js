@@ -75,7 +75,29 @@ _logoutUser = (req, res, next) => {
 }
 
 _editUser = catchAsync( async (req, res,) => {
-    res.send('stuff happens here..  Magic...  ');
+    let redirect = '/';
+
+    try{
+        if(req.user.userType === 'user' || req.user._id === req.params.id){
+            const u = await user.findById(req.user._id);
+            if(!u) throw new expressError('Unable to locate', 500);
+
+            const updateUser = await user.updateOne({_id: u._id}, {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email
+            })
+
+            if(!updateUser) throw new expressError('Unable to Update user', 500);
+            req.flash('success', `The ${updateUser.username} was updated!`);
+            redirect = '/users';
+        }
+    } catch(err) {
+        req.flash('error', err.message);
+    }
+
+    res.redirect(redirect);
+
 });
 
 _deleteUser = catchAsync( async (req, res) => {

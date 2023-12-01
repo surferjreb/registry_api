@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const guest = require('./guest');
+const user = require('./user');
 
 const commentSchema = new Schema({
 	date: {
@@ -23,7 +23,7 @@ const commentSchema = new Schema({
 	},
 	guest: {
 		type: Schema.Types.ObjectId,
-		ref: guest,
+		ref: user,
 		required: true
 	}
 })

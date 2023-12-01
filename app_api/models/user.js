@@ -19,6 +19,15 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true
+    },
+    madeComment: {
+        type: Boolean,
+        default: false,
+    },
+    userType: {
+        type: String,
+        enum: ['user', 'guest'],
+        default: 'guest'
     }
 });
 
